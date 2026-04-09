@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Bruno Dias — Desenvolvedor Fullstack & Mobile",
   description:
     "Desenvolvimento de aplicações web e mobile sob medida. Soluções modernas para empresas e startups.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

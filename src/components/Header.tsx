@@ -56,8 +56,10 @@ export default function Header() {
   const { lang } = useLang()
 
   const navLinks = [
-    { label: tr(t.empresa, lang), href: '#empresa' },
+    { label: tr(t.stack, lang), href: '#stack' },
+    { label: tr(t.experiencia, lang), href: '#ferramentas' },
     { label: tr(t.projetos, lang), href: '#projetos' },
+    { label: tr(t.empresa, lang), href: '#empresa' },
     { label: tr(t.contato, lang), href: '#contato' },
   ]
 

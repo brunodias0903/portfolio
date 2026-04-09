@@ -51,11 +51,12 @@ function BlackHole() {
   const offsetX = useSceneOffset();
   const blackHoleRef = useRef<THREE.Group>(null);
   const baseTilt = 0.28;
+  const elapsed = useRef(0);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!blackHoleRef.current) return;
-    const t = state.clock.elapsedTime;
-    blackHoleRef.current.rotation.x = baseTilt + Math.sin(t * 0.25) * 0.03;
+    elapsed.current += delta;
+    blackHoleRef.current.rotation.x = baseTilt + Math.sin(elapsed.current * 0.25) * 0.03;
     blackHoleRef.current.rotation.y += delta * 0.2;
   });
 

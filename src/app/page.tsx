@@ -2,6 +2,8 @@ import BlackHoleBackground from '@/components/BlackHoleBackground'
 import Header from '@/components/Header'
 import HeroSection from '@/components/HeroSection'
 import TechStackSection from '@/components/TechStackSection'
+import ExperienceSection from '@/components/ExperienceSection'
+import ProjectsSection from '@/components/ProjectsSection'
 import EmpresaSection from '@/components/EmpresaSection'
 import ContatoSection from '@/components/ContatoSection'
 import Footer from '@/components/Footer'
@@ -14,7 +16,8 @@ export default function Home() {
       <main className="relative z-10 flex-1">
         <HeroSection />
         <TechStackSection />
-        {/* TODO: Seção de Projetos */}
+        <ExperienceSection />
+        <ProjectsSection />
         <EmpresaSection />
         <ContatoSection />
       </main>

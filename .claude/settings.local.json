@@ -5,7 +5,9 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(pnpm add:*)",
       "Bash(npm install:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); console.log\\(Object.keys\\(si\\).filter\\(k => /linkedin|github/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e \"const si = require\\('react-icons/si'\\); console.log\\(Object.keys\\(si\\).filter\\(k => /linked/i.test\\(k\\)\\)\\)\")"
     ]
   }
 }

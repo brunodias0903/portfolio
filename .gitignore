@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local project videos (host externally)
+public/eye_center.mp4
+public/rf_adv.mp4
+public/*.mov
