@@ -42,10 +42,10 @@ export default function EmpresaSection() {
       />
 
       <motion.div
-        initial={{ opacity: 0, x: -44, y: 18 }}
-        whileInView={{ opacity: 1, x: 0, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.72, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
         className="relative max-w-5xl mx-auto"
       >
         <motion.p

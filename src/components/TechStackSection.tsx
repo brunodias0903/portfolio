@@ -84,13 +84,6 @@ const categories: Category[] = [
   },
 ]
 
-const floatVariant = (duration: number) => ({
-  animate: {
-    y: [0, -10, 0],
-    transition: { duration, repeat: Infinity, ease: 'easeInOut' as const },
-  },
-})
-
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
@@ -117,10 +110,10 @@ export default function TechStackSection() {
       />
 
       <motion.div
-        initial={{ opacity: 0, x: -56 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
         className="relative max-w-5xl mx-auto"
       >
         <motion.p
@@ -181,10 +174,13 @@ export default function TechStackSection() {
                         className="flex flex-col items-center gap-3 cursor-default"
                       >
                         <motion.div
-                          variants={floatVariant(tech.duration)}
-                          animate="animate"
-                          className="relative flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-900/50"
-                          style={{ border: '1px solid #3f3f46' }}
+                          className="tech-float-icon relative flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-900/50"
+                          style={{
+                            border: '1px solid #3f3f46',
+                            animation: `tech-float ${tech.duration}s ease-in-out infinite`,
+                            animationDelay: `${tech.delay}s`,
+                            willChange: 'transform',
+                          }}
                           whileHover={{ scale: 1.12, borderColor: tech.color + '66' }}
                           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                         >

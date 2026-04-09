@@ -21,8 +21,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-transparent px-8 md:px-16 lg:px-24">
-      {/* Gradient mask — text readability on desktop */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent pointer-events-none" />
+      {/* Gradient mask — text readability on desktop, lighter on mobile */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/60 via-[#0a0a0a]/40 to-transparent pointer-events-none md:from-[#0a0a0a] md:via-[#0a0a0a]/90" />
       {/* Extra overlay for mobile where the black hole sits centered behind text */}
       <div className="absolute inset-0 bg-[#0a0a0a]/50 pointer-events-none md:hidden" />
 
@@ -129,10 +129,9 @@ export default function HeroSection() {
         <span className="text-zinc-600 text-[10px] font-mono tracking-[0.25em] uppercase">
           scroll
         </span>
-        <motion.div
-          animate={{ scaleY: [1, 0.3, 1] }}
-          transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
-          className="w-px h-8 bg-zinc-700 origin-top"
+        <div
+          className="scroll-pulse-line w-px h-8 bg-zinc-700 origin-top"
+          style={{ animation: 'scroll-pulse 1.4s ease-in-out infinite', willChange: 'transform' }}
         />
       </motion.div>
     </section>
