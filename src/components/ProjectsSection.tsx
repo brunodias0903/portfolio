@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import { SiNextdotjs, SiSanity } from 'react-icons/si'
 import { FaWhatsapp } from 'react-icons/fa'
-import { TbDeviceMobile, TbPencil, TbUsers, TbPhoto, TbTag, TbWriting } from 'react-icons/tb'
+import { TbDeviceMobile, TbUsers, TbPhoto, TbTag, TbWriting } from 'react-icons/tb'
 import type { IconType } from 'react-icons'
 import { useLang } from '@/contexts/LanguageContext'
 import { tr, translations } from '@/i18n'
@@ -21,6 +21,26 @@ const tagMeta: Record<string, { icon: IconType; color: string }> = {
 }
 
 const t = translations.projects
+
+function getGoogleDrivePreviewUrl(url: string) {
+  try {
+    const parsedUrl = new URL(url)
+
+    if (!parsedUrl.hostname.includes('drive.google.com')) {
+      return null
+    }
+
+    if (parsedUrl.pathname.startsWith('/file/d/')) {
+      const [, , , fileId] = parsedUrl.pathname.split('/')
+      return fileId ? `https://drive.google.com/file/d/${fileId}/preview` : null
+    }
+
+    const fileId = parsedUrl.searchParams.get('id')
+    return fileId ? `https://drive.google.com/file/d/${fileId}/preview` : null
+  } catch {
+    return null
+  }
+}
 
 export default function ProjectsSection() {
   const { lang } = useLang()
@@ -91,6 +111,7 @@ function ProjectCard({
   lang: 'pt' | 'en'
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const drivePreviewUrl = getGoogleDrivePreviewUrl(project.video)
 
   return (
     <motion.div
@@ -102,15 +123,26 @@ function ProjectCard({
     >
       {/* Video — ordem invertida em índices ímpares no desktop */}
       <div className={`relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-video ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
-        <video
-          ref={videoRef}
-          src={project.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        />
+        {drivePreviewUrl ? (
+          <iframe
+            src={drivePreviewUrl}
+            title={`Preview de video do projeto ${project.name}`}
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            className="w-full h-full"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src={project.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* Info */}
