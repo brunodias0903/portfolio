@@ -1,27 +1,26 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiPostgresql,
-  SiDocker,
-  SiPrisma,
-  SiFlutter,
-  SiAndroid,
-  SiApple,
-  SiExpo,
-  SiGit,
-  SiGithub,
-  SiVercel,
-  SiFastify,
-} from 'react-icons/si'
-import type { IconType } from 'react-icons'
 import { useLang } from '@/contexts/LanguageContext'
 import { tr, translations } from '@/i18n'
+import { motion } from 'framer-motion'
+import type { IconType } from 'react-icons'
+import {
+  SiAndroid,
+  SiApple,
+  SiDocker,
+  SiFastify,
+  SiFlutter,
+  SiGit,
+  SiGithub,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel
+} from 'react-icons/si'
 
 const t = translations.stack
 
@@ -58,7 +57,6 @@ const categories: Category[] = [
       { icon: SiFastify,    label: 'Fastify',     color: '#ffffff', delay: 0.2, duration: 4.6 },
       { icon: SiPostgresql, label: 'PostgreSQL',  color: '#4169e1', delay: 0.4, duration: 4.8 },
       { icon: SiPrisma,     label: 'Prisma',      color: '#5a67d8', delay: 0.6, duration: 5.2 },
-      { icon: SiDocker,     label: 'Docker',      color: '#2496ed', delay: 0.8, duration: 4.4 },
     ],
   },
   {
@@ -67,7 +65,6 @@ const categories: Category[] = [
     techs: [
       { icon: SiReact,   label: 'React Native', color: '#61dafb', delay: 0.0, duration: 4.2 },
       { icon: SiFlutter, label: 'Flutter',      color: '#54c5f8', delay: 0.2, duration: 4.6 },
-      { icon: SiExpo,    label: 'Expo',         color: '#ffffff', delay: 0.4, duration: 5.0 },
       { icon: SiAndroid, label: 'Android',      color: '#3ddc84', delay: 0.6, duration: 5.2 },
       { icon: SiApple,   label: 'iOS',          color: '#a5b4fc', delay: 0.8, duration: 4.4 },
     ],
