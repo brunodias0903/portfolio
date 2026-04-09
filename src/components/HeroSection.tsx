@@ -1,31 +1,31 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
+import { useLang } from '@/contexts/LanguageContext'
+import { tr, translations } from '@/i18n'
 
-const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false })
+const t = translations.hero
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (delay: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay, ease: 'easeOut' },
+    transition: { duration: 0.6, delay, ease: 'easeOut' as const },
   }),
 }
 
 export default function HeroSection() {
+  const { lang } = useLang()
+
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#0a0a0a]">
-      {/* 3D Canvas */}
-      <div className="absolute inset-0">
-        <HeroScene />
-      </div>
+    <section className="relative h-screen w-full overflow-hidden bg-transparent">
+      {/* Gradient mask — text readability on desktop */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent pointer-events-none" />
+      {/* Extra overlay for mobile where the black hole sits centered behind text */}
+      <div className="absolute inset-0 bg-[#0a0a0a]/50 pointer-events-none md:hidden" />
 
-      {/* Gradient mask — garante legibilidade do texto à esquerda */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent pointer-events-none" />
-
-      {/* Conteúdo textual */}
+      {/* Text content */}
       <div className="relative z-10 flex h-full items-center px-8 md:px-16 lg:px-24">
         <div className="max-w-xl">
           <motion.p
@@ -35,7 +35,7 @@ export default function HeroSection() {
             custom={0}
             className="text-indigo-400 text-xs font-mono tracking-[0.3em] uppercase mb-4"
           >
-            Olá, eu sou
+            {tr(t.greeting, lang)}
           </motion.p>
 
           <motion.h1
@@ -53,9 +53,9 @@ export default function HeroSection() {
             initial="hidden"
             animate="visible"
             custom={0.2}
-            className="text-xl md:text-2xl text-zinc-400 font-light mb-6"
+            className="text-xl md:text-2xl text-zinc-300 font-light mb-6"
           >
-            Desenvolvedor Fullstack &amp; Mobile
+            {tr(t.role, lang)}
           </motion.h2>
 
           <motion.p
@@ -63,10 +63,9 @@ export default function HeroSection() {
             initial="hidden"
             animate="visible"
             custom={0.3}
-            className="text-zinc-500 text-base leading-relaxed mb-10"
+            className="text-zinc-400 text-base leading-relaxed mb-10"
           >
-            Transformo ideias em produtos digitais — do backend robusto ao app
-            mobile, com foco em experiência real e resultado para o seu negócio.
+            {tr(t.description, lang)}
           </motion.p>
 
           <motion.div
@@ -80,7 +79,7 @@ export default function HeroSection() {
               href="#projetos"
               className="px-7 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium rounded-full transition-colors duration-200"
             >
-              Ver Projetos
+              {tr(t.ctaProjects, lang)}
             </a>
             <a
               href="https://wa.me/5592981705996"
@@ -88,7 +87,7 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="px-7 py-3 border border-zinc-700 hover:border-zinc-500 text-zinc-400 hover:text-white text-sm font-medium rounded-full transition-colors duration-200"
             >
-              Falar no WhatsApp
+              {tr(t.ctaWhatsapp, lang)}
             </a>
           </motion.div>
         </div>
