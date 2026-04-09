@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://brunodias.dev"),
   title: "Bruno Dias — Desenvolvedor Fullstack & Mobile",
   description:
     "Desenvolvimento de aplicações web e mobile sob medida. Soluções modernas para empresas e startups.",
