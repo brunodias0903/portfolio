@@ -6,6 +6,7 @@ import { useLang } from '@/contexts/LanguageContext'
 import { tr, translations } from '@/i18n'
 
 const t = translations.header
+const navSectionHrefs = ['#stack', '#ferramentas', '#projetos', '#empresa', '#contato'] as const
 
 function BlackHoleLogo() {
   return (
@@ -53,23 +54,40 @@ function LanguageSwitcher() {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null)
   const { lang } = useLang()
 
   const navLinks = [
-    { label: tr(t.stack, lang), href: '#stack' },
-    { label: tr(t.experiencia, lang), href: '#ferramentas' },
-    { label: tr(t.projetos, lang), href: '#projetos' },
-    { label: tr(t.empresa, lang), href: '#empresa' },
-    { label: tr(t.contato, lang), href: '#contato' },
+    { label: tr(t.stack, lang), href: navSectionHrefs[0] },
+    { label: tr(t.experiencia, lang), href: navSectionHrefs[1] },
+    { label: tr(t.projetos, lang), href: navSectionHrefs[2] },
+    { label: tr(t.empresa, lang), href: navSectionHrefs[3] },
+    { label: tr(t.contato, lang), href: navSectionHrefs[4] },
   ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleNavClick = () => setMenuOpen(false)
+  function navigateTo(href: string) {
+    const section = document.getElementById(href.replace('#', ''))
+    if (!section) {
+      return
+    }
+
+    const top = section.getBoundingClientRect().top + window.scrollY - 84
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
+    setMenuOpen(false)
+  }
+
+  function navigateToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setHoveredHref(null)
+    setMenuOpen(false)
+  }
 
   return (
     <header
@@ -81,24 +99,49 @@ export default function Header() {
     >
       <div className="max-w-5xl mx-auto px-8 md:px-16 lg:px-24 h-16 flex items-center justify-between">
         {/* Brand */}
-        <a href="#" className="flex items-center gap-2.5 group">
+        <a
+          href="#"
+          onClick={(event) => {
+            event.preventDefault()
+            navigateToTop()
+          }}
+          className="flex items-center gap-2.5 group"
+        >
           <BlackHoleLogo />
           <span className="text-white font-semibold text-sm tracking-wide group-hover:text-indigo-400 transition-colors duration-200">
-            Norrvik Tech
+            Bruno Dias
           </span>
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-zinc-400 hover:text-white text-sm transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center gap-8" onMouseLeave={() => setHoveredHref(null)}>
+          {navLinks.map((link) => {
+            const isCurrent = hoveredHref === link.href
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(event) => {
+                  event.preventDefault()
+                  navigateTo(link.href)
+                }}
+                onMouseEnter={() => setHoveredHref(link.href)}
+                onFocus={() => setHoveredHref(link.href)}
+                onBlur={() => setHoveredHref(null)}
+                className="relative pb-1 text-sm text-zinc-400 hover:text-white transition-colors duration-200 focus-visible:outline-none"
+              >
+                {link.label}
+                {isCurrent && (
+                  <motion.span
+                    layoutId="desktop-nav-underline"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    className="absolute left-0 right-0 -bottom-0.5 h-[2px] rounded-full bg-indigo-500 shadow-[0_0_16px_-2px_rgba(99,102,241,0.95)]"
+                  />
+                )}
+              </a>
+            )
+          })}
           <LanguageSwitcher />
         </nav>
 
@@ -133,21 +176,26 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0, y: -14 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-md border-b border-zinc-800/60 px-8 pb-6 pt-2 flex flex-col gap-4"
           >
             {navLinks.map((link) => (
-              <a
+              <motion.a
                 key={link.href}
                 href={link.href}
-                onClick={handleNavClick}
-                className="text-zinc-400 hover:text-white text-sm transition-colors duration-200"
+                onClick={(event) => {
+                  event.preventDefault()
+                  navigateTo(link.href)
+                }}
+                whileHover={{ x: 6 }}
+                transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+                className="text-sm text-zinc-400 hover:text-white transition-colors duration-200"
               >
                 {link.label}
-              </a>
+              </motion.a>
             ))}
           </motion.nav>
         )}

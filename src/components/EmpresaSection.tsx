@@ -41,7 +41,13 @@ export default function EmpresaSection() {
         style={{ background: 'radial-gradient(ellipse, #6366f1 0%, #06b6d4 100%)' }}
       />
 
-      <div className="relative max-w-5xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, x: -44, y: 18 }}
+        whileInView={{ opacity: 1, x: 0, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.72, ease: 'easeOut' }}
+        className="relative max-w-5xl mx-auto"
+      >
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +71,7 @@ export default function EmpresaSection() {
             backgroundClip: 'text',
           }}
         >
-          Norrvik Tech
+          {tr(t.title, lang)}
         </motion.h2>
 
         <motion.p
@@ -105,7 +111,7 @@ export default function EmpresaSection() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

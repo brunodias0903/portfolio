@@ -18,7 +18,13 @@ export default function ContatoSection() {
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
 
-      <div className="relative max-w-3xl mx-auto text-center">
+      <motion.div
+        initial={{ opacity: 0, x: 44, y: 16 }}
+        whileInView={{ opacity: 1, x: 0, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.72, ease: 'easeOut' }}
+        className="relative max-w-3xl mx-auto text-center"
+      >
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -96,7 +102,7 @@ export default function ContatoSection() {
             {tr(t.github, lang)}
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
     </section>

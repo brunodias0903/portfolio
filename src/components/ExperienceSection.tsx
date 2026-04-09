@@ -70,7 +70,13 @@ export default function ExperienceSection() {
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, x: 56 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative max-w-5xl mx-auto"
+      >
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -195,7 +201,7 @@ export default function ExperienceSection() {
             })}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

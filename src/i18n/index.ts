@@ -11,7 +11,7 @@ export const translations = {
     stack: { pt: "Stack", en: "Stack" },
     experiencia: { pt: "Experiência", en: "Experience" },
     projetos: { pt: "Projetos", en: "Projects" },
-    empresa: { pt: "Empresa", en: "Company" },
+    empresa: { pt: "Atuação", en: "Expertise" },
     contato: { pt: "Contato", en: "Contact" },
     openMenu: { pt: "Abrir menu", en: "Open menu" },
   },
@@ -105,7 +105,7 @@ export const translations = {
     visitSite: { pt: "Visitar site", en: "Visit site" },
     items: [
       {
-        name: "Eye Center",
+        name: "Eye Center Website",
         description: {
           pt: "Clínica oftalmológica precisava de um site que refletisse a identidade visual criada pelo designer dela — pixel a pixel. A equipe ganhou autonomia total via Sanity para atualizar fotos da hero, apresentar os médicos e publicar no blog, sem depender de dev.",
           en: "An ophthalmology clinic needed a site that matched their designer's vision exactly. The team got full autonomy via Sanity to update hero images, showcase their doctors, and publish blog posts — no developer needed.",
@@ -118,10 +118,13 @@ export const translations = {
           "WhatsApp API",
         ],
         url: "https://eyecenter.med.br",
-        video: "https://drive.google.com/uc?export=download&id=1bFhPdR-6XH4g2YxsLizcTZ7GMYOalzuc",
+        video:
+          "https://res.cloudinary.com/dcwosdxvp/video/upload/f_auto,q_auto/eye_center_m6b4md.mp4",
+        videoPlayer:
+          "https://player.cloudinary.com/embed/?cloud_name=dcwosdxvp&public_id=eye_center_m6b4md",
       },
       {
-        name: "Ribeiro & Farias Advogados",
+        name: "R&F Advogados Associados",
         description: {
           pt: "Escritório de advocacia em Manaus que veio com o layout pronto e a necessidade de um blog editorial completo. Construí um CMS no Sanity com suporte a autores, categorias e posts ricos — tudo integrado ao WhatsApp para converter visitas em contatos.",
           en: "A Manaus law firm came with their own layout and needed a full editorial blog. I built a Sanity CMS with authors, categories, and rich posts — all wired to WhatsApp to turn visits into leads.",
@@ -134,22 +137,26 @@ export const translations = {
           "WhatsApp API",
         ],
         url: "https://www.ribeiroefariasadv.com.br/",
-        video: "https://drive.google.com/uc?export=download&id=1XtVL-g9TzAeGx7gMqsw8uDbcKC3xoMVu",
+        video:
+          "https://res.cloudinary.com/dcwosdxvp/video/upload/f_auto,q_auto/rf_adv_g7vlep.mp4",
+        videoPlayer:
+          "https://player.cloudinary.com/embed/?cloud_name=dcwosdxvp&public_id=rf_adv_g7vlep",
       },
     ],
   },
   empresa: {
-    label: { pt: "A empresa", en: "The company" },
+    label: { pt: "Atuação", en: "Expertise" },
+    title: { pt: "Como eu contribuo", en: "How I contribute" },
     subtitle: {
-      pt: "Desenvolvimento de software sob encomenda — soluções digitais pensadas para resolver problemas reais e gerar valor desde o primeiro deploy.",
-      en: "Custom software development — digital solutions designed to solve real problems and generate value from the first deploy.",
+      pt: "Sou um desenvolvedor focado em produto e entrega. Atuo no ciclo completo: planejamento técnico, implementação, integrações e evolução contínua.",
+      en: "I'm a delivery-focused product engineer. I work across the full cycle: technical planning, implementation, integrations, and continuous improvement.",
     },
     services: [
       {
-        title: { pt: "Sistemas Web", en: "Web Systems" },
+        title: { pt: "Produtos Web", en: "Web Products" },
         description: {
-          pt: "Plataformas, dashboards e sistemas internos construídos do zero — rápidos, escaláveis e pensados para o seu fluxo de trabalho.",
-          en: "Platforms, dashboards, and internal systems built from scratch — fast, scalable, and designed for your workflow.",
+          pt: "Interfaces, painéis e sistemas internos com foco em usabilidade, performance e arquitetura sustentável.",
+          en: "Interfaces, dashboards, and internal systems focused on usability, performance, and sustainable architecture.",
         },
       },
       {
@@ -160,10 +167,10 @@ export const translations = {
         },
       },
       {
-        title: { pt: "APIs & Integrações", en: "APIs & Integrations" },
+        title: { pt: "Back-end & Integrações", en: "Back-end & Integrations" },
         description: {
-          pt: "Backends robustos e integrações com serviços externos — pagamentos, notificações, ERPs e tudo mais que o seu negócio precisa.",
-          en: "Robust backends and integrations with external services — payments, notifications, ERPs, and everything else your business needs.",
+          pt: "APIs robustas e integração com serviços externos para suportar crescimento, automação e confiabilidade.",
+          en: "Robust APIs and third-party integrations to support growth, automation, and reliability.",
         },
       },
     ],
@@ -182,8 +189,8 @@ export const translations = {
   },
   footer: {
     tagline: {
-      pt: "Desenvolvimento de software sob encomenda",
-      en: "Custom software development",
+      pt: "Portfólio profissional",
+      en: "Professional portfolio",
     },
   },
 };

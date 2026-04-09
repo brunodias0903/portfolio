@@ -116,7 +116,13 @@ export default function TechStackSection() {
         style={{ background: 'radial-gradient(ellipse, #6366f1 0%, #06b6d4 100%)' }}
       />
 
-      <div className="relative max-w-5xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, x: -56 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative max-w-5xl mx-auto"
+      >
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -197,7 +203,7 @@ export default function TechStackSection() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
     </section>
