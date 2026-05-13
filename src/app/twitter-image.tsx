@@ -38,7 +38,6 @@ export default function Image() {
           background: '#0a0a0a',
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`data:image/svg+xml;base64,${svgBase64}`}
           width={240}

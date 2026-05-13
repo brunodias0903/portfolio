@@ -124,6 +124,20 @@ export const translations = {
           "https://player.cloudinary.com/embed/?cloud_name=dcwosdxvp&public_id=eye_center_m6b4md",
       },
       {
+        name: "Eye Center — Comunicação Automatizada",
+        description: {
+          pt: "Sistema interno para a Eye Center que elimina o follow-up manual com clientes de lentes de contato. Confirma compras, avisa quando a lente está prestes a vencer e dispara cupons de aniversário — tudo via WhatsApp e e-mail, sem intervenção da equipe.",
+          en: "An internal automation system for Eye Center that eliminates manual follow-up with contact lens customers. It confirms purchases, alerts when lenses are about to expire, and sends birthday discount coupons — all via WhatsApp and email, with no staff intervention.",
+        },
+        tags: [
+          "React",
+          "Laravel",
+          "WhatsApp API",
+          "SMTP",
+          "Automação",
+        ],
+      },
+      {
         name: "R&F Advogados Associados",
         description: {
           pt: "Escritório de advocacia em Manaus que veio com o layout pronto e a necessidade de um blog editorial completo. Construí um CMS no Sanity com suporte a autores, categorias e posts ricos — tudo integrado ao WhatsApp para converter visitas em contatos.",

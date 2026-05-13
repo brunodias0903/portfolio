@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { SiNextdotjs, SiSanity } from 'react-icons/si'
+import { SiNextdotjs, SiSanity, SiReact, SiLaravel } from 'react-icons/si'
 import { FaWhatsapp } from 'react-icons/fa'
-import { TbDeviceMobile, TbUsers, TbPhoto, TbTag, TbWriting } from 'react-icons/tb'
+import { TbDeviceMobile, TbUsers, TbPhoto, TbTag, TbWriting, TbMail, TbRobot, TbLock } from 'react-icons/tb'
 import type { IconType } from 'react-icons'
 import { useLang } from '@/contexts/LanguageContext'
 import { tr, translations } from '@/i18n'
@@ -18,6 +18,10 @@ const tagMeta: Record<string, { icon: IconType; color: string }> = {
   'Hero Dinâmica':         { icon: TbPhoto,        color: '#f59e0b' },
   'Autores & Categorias':  { icon: TbTag,          color: '#818cf8' },
   'WhatsApp API':  { icon: FaWhatsapp,     color: '#25d366' },
+  'React':         { icon: SiReact,        color: '#61dafb' },
+  'Laravel':       { icon: SiLaravel,      color: '#ff2d20' },
+  'SMTP':          { icon: TbMail,         color: '#60a5fa' },
+  'Automação':     { icon: TbRobot,        color: '#c084fc' },
 }
 
 const t = translations.projects
@@ -122,7 +126,8 @@ function ProjectCard({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
-  const embeddedVideoUrl = getEmbeddedVideoUrl(project.video)
+  const hasVideo = Boolean(project.video)
+  const embeddedVideoUrl = hasVideo ? getEmbeddedVideoUrl(project.video!) : null
   const playerUrl = project.videoPlayer ?? embeddedVideoUrl
 
   useEffect(() => {
@@ -156,41 +161,54 @@ function ProjectCard({
         className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
       >
         {/* Video — ordem invertida em índices ímpares no desktop */}
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label={`Abrir player do projeto ${project.name}`}
-          onClick={() => setIsPlayerOpen(true)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault()
-              setIsPlayerOpen(true)
-            }
-          }}
-          className={`relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-video cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1 hover:border-indigo-500/70 hover:shadow-[0_18px_35px_-22px_rgba(99,102,241,0.95)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${index % 2 !== 0 ? 'md:order-2' : ''}`}
-        >
-          {embeddedVideoUrl ? (
-            <iframe
-              src={embeddedVideoUrl}
-              title={`Preview de video do projeto ${project.name}`}
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-              className="w-full h-full pointer-events-none"
+        {hasVideo ? (
+          <div
+            role="button"
+            tabIndex={0}
+            aria-label={`Abrir player do projeto ${project.name}`}
+            onClick={() => setIsPlayerOpen(true)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                setIsPlayerOpen(true)
+              }
+            }}
+            className={`relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-video cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1 hover:border-indigo-500/70 hover:shadow-[0_18px_35px_-22px_rgba(99,102,241,0.95)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${index % 2 !== 0 ? 'md:order-2' : ''}`}
+          >
+            {embeddedVideoUrl ? (
+              <iframe
+                src={embeddedVideoUrl}
+                title={`Preview de video do projeto ${project.name}`}
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                className="w-full h-full pointer-events-none"
+              />
+            ) : (
+              <video
+                ref={videoRef}
+                src={project.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            )}
+          </div>
+        ) : (
+          <div
+            className={`relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-video flex flex-col items-center justify-center gap-3 ${index % 2 !== 0 ? 'md:order-2' : ''}`}
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-20"
+              style={{ background: 'radial-gradient(ellipse at center, #6366f1 0%, transparent 70%)' }}
             />
-          ) : (
-            <video
-              ref={videoRef}
-              src={project.video}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover pointer-events-none"
-            />
-          )}
-
-        </div>
+            <TbLock size={32} className="text-zinc-600" />
+            <span className="text-zinc-600 text-xs font-mono tracking-widest uppercase">Sistema Interno</span>
+          </div>
+        )}
 
         {/* Info */}
         <div className={index % 2 !== 0 ? 'md:order-1' : ''}>
@@ -213,18 +231,20 @@ function ProjectCard({
               )
             })}
           </div>
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-zinc-200 text-zinc-900 text-sm font-medium rounded-full transition-colors duration-200"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-              <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
-              <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
-            </svg>
-            {tr(t.visitSite, lang)}
-          </a>
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-zinc-200 text-zinc-900 text-sm font-medium rounded-full transition-colors duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
+                <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
+              </svg>
+              {tr(t.visitSite, lang)}
+            </a>
+          )}
         </div>
       </motion.div>
 
